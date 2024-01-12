@@ -7,6 +7,7 @@ const InputSearch: FC<iInputSearchProps> = ({ handleValue }) => (
   <input
     // value={text}
     onChange={({ target: { value } }: iInputEvent) => {
+      console.log('value', value)
       handleValue(value);
       // setText(value);
     }}

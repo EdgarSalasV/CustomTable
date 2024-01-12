@@ -1,23 +1,30 @@
-import axios from "axios";
+import axios, { AxiosHeaders } from "axios";
 import { iGeneral } from "../interface/iGeneral";
+
+interface iDataAxios {
+  data: { data: iGeneral | iGeneral[] };
+  headers: AxiosHeaders;
+  request: XMLHttpRequest;
+  status: 200;
+  statusText: "";
+}
 
 export interface iUseFetchReturn {
   status: number;
-  data?: iGeneral | iGeneral[] | undefined;
+  URL?: string;
+  data?: iGeneral | iGeneral[];
   error?: string;
-  loading: boolean;
 }
 export const fetchService = async (URL: string): Promise<iUseFetchReturn> => {
-  let data: iGeneral | iGeneral[];
-  const error: string = "";
-  const loading: boolean = true;
+  let dataFetch: iDataAxios;
 
   try {
-    data = await axios.get(URL);
+    dataFetch = (await axios.get(URL)).data;
+    console.log("dataFetch", dataFetch);
   } catch (error) {
     console.error(error);
-    return { status: 500, error: "error", loading: !!loading };
+    return { status: 500, error: "error" };
   }
 
-  return { status: 200, data, loading: !!loading };
+  return { status: 200, data: dataFetch, URL };
 };

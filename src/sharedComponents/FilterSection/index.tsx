@@ -2,17 +2,18 @@ import { FC, useState } from "react";
 import InputSearch from "../InputSearch";
 
 interface iFilterSection {
-  handleFilterItem: (text: string) => void;
+  fetchCustomUrl: (text: string) => void;
 }
-const FilterSection: FC<iFilterSection> = ({ handleFilterItem }) => {
-  const [text, setText] = useState<string>("");
+const FilterSection: FC<iFilterSection> = ({ fetchCustomUrl }) => {
+  // TODO SET DEFAULT "" IN TEXT STATE
+  const [text, setText] = useState<string>("https://pokeapi.co/api/v2/berry");
   return (
     <div className="FilterSection">
       <InputSearch handleValue={setText} />
       <input
         type="button"
         value="search"
-        onClick={() => handleFilterItem(text)}
+        onClick={() => fetchCustomUrl(text)}
       />
       {/* .... Agrupadores, filtercustoms */}
     </div>
