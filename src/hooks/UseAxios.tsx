@@ -1,17 +1,21 @@
 import axios from "axios";
-import { useEffect, useState } from "react";
-interface iAxios {
-  [id: string]: any;
+import { FC, useEffect, useState } from "react";
+import { iGeneral } from "../interface/iGeneral";
+
+export interface iUseFetchReturn {
+  data: iGeneral | iGeneral[] | undefined;
+  error: undefined;
+  loading: boolean;
 }
-export const useFetch = (url: string) => {
-  const [data, setData] = useState<iAxios | iAxios[]>();
+export const useFetch = (url: string): iUseFetchReturn => {
+  const [data, setData] = useState<iGeneral | iGeneral[]>();
   const [error, setError] = useState();
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     setLoading(true);
     axios(url)
-      .then((data: iAxios) => {
+      .then((data: iGeneral) => {
         setData(data);
       })
       .catch(setError)
